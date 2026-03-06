@@ -1,4 +1,4 @@
-## 👥 Équipe Projet
+## Équipe Projet
 
 - **RAHOLDINA FIARA ANJARA MIHAVANA**
 - **ANDRIATSIFERANA NO KANTO LORIDA**
@@ -6,24 +6,24 @@
 
 ---
 
-# 📖 Demo Guide: Madagascar E-Commerce Platform (ERP & BI)
+# Demo Guide: Madagascar E-Commerce Platform (ERP & BI)
 
 This project is a comprehensive e-commerce management solution (ERP) coupled with an intelligent Business Intelligence (BI) and Artificial Intelligence stack.
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 The system comprises **6 services** orchestrated by Docker:
 
-1.  **🐘 Database (PostgreSQL)**: Central storage for ERP data and Data Warehouse.
-2.  **🚀 ERP Service (FastAPI)**: Management of orders, customers, and inventory for Madagascar marketplace.
-3.  **🔄 ETL Service (Pandas)**: Automation of extraction and transformation to star schema.
-4.  **🧠 Analytics Service (Scikit-Learn)**: Data Mining engine (RFM, ARIMA).
-5.  **📊 AI Dashboard (Streamlit)**: User interface with AI-powered reporting (NLG).
-6.  **📉 Metabase**: Self-service BI tool for visual exploration.
+1.  **Database (PostgreSQL)**: Central storage for ERP data and Data Warehouse.
+2.  **ERP Service (FastAPI)**: Management of orders, customers, and inventory for Madagascar marketplace.
+3.  **ETL Service (Pandas)**: Automation of extraction and transformation to star schema.
+4.  **Analytics Service (Scikit-Learn)**: Data Mining engine (RFM, ARIMA).
+5.  **AI Dashboard (Streamlit)**: User interface with AI-powered reporting (NLG).
+6.  **Metabase**: Self-service BI tool for visual exploration.
 
 ---
 
-## 🚀 Quick Installation
+## Quick Installation
 
 1.  **Set environment variables**:
     Create a `.env` file at project root:
@@ -45,34 +45,34 @@ The system comprises **6 services** orchestrated by Docker:
 
 ---
 
-## 🎬 Demo Steps
+## Demo Steps
 
-### 1️⃣ Master Data Initialization
+### 1. Master Data Initialization
 Populate ERP with initial products and customers.
 -   **Action**: Click on [http://localhost:8000/seed/](http://localhost:8000/seed/)
 -   **Tool**: Browser or Postman.
 
-### 2️⃣ Generate Bulk Data
+### 2. Generate Bulk Data
 Generate 50+ historical orders for AI model training.
 -   **Action**: Click on [http://localhost:8000/seed_massive/](http://localhost:8000/seed_massive/)
 
-### 3️⃣ Launch ETL
+### 3. Launch ETL
 Transfer ERP data to Data Warehouse BI (Star Schema).
 -   **Action**: Click on [http://localhost:8002/trigger](http://localhost:8002/trigger)
 -   **Verification**: Check `http://localhost:8002/status` for loaded rows.
 
-### 4️⃣ Data Analysis & Mining
+### 4. Data Analysis & Mining
 Analytics service now processes Warehouse data.
 -   **RFM Segmentation**: `http://localhost:8001/mining/rfm`
 -   **ARIMA Predictions**: `http://localhost:8001/mining/predictions`
 
-### 5️⃣ Interactive Dashboard & AI
+### 5. Interactive Dashboard & AI
 Access the interface (`http://localhost:8501`).
 -   **RFM Tab**: View customer segments (Premium, Occasional, At-Risk).
 -   **Predictions Tab**: See future sales trends.
 -   **AI Tab**: Generate automated strategic report based on KPIs.
 
-### 6️⃣ BI Exploration (Metabase)
+### 6. BI Exploration (Metabase)
 For advanced analysis: `http://localhost:3000`.
 
 **Initial Configuration (if needed):**
@@ -86,7 +86,7 @@ For advanced analysis: `http://localhost:3000`.
 
 ---
 
-## 🔗 Useful Links
+## Useful Links
 
 | Service | URL / Port | API Documentation |
 | :--- | :--- | :--- |
