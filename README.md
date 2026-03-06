@@ -1,4 +1,4 @@
-## Équipe Projet
+## Project Team
 
 - **RAHOLDINA FIARA ANJARA MIHAVANA**
 - **ANDRIATSIFERANA NO KANTO LORIDA**
