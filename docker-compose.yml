@@ -1,0 +1,91 @@
+services:
+  # --- 1. Database (Storage) ---
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME_ERP}
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - erp_net
+
+  # --- 2. ERP (Transactional - FastAPI) ---
+  erp:
+    build: ./erp_service
+    container_name: erp_api
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASS}@db/${DB_NAME_ERP}
+    depends_on: [db]
+    networks:
+      - erp_net
+
+  # --- 3. ETL (Data Integration) ---
+  etl:
+    build: ./etl_service
+    container_name: etl_worker
+    ports:
+      - "8002:8002"
+    environment:
+      SRC_DB_URL: postgresql://${DB_USER}:${DB_PASS}@db/${DB_NAME_ERP}
+      TGT_DB_URL: postgresql://${DB_USER}:${DB_PASS}@db/${DB_NAME_BI}
+    depends_on: [erp]
+    networks:
+      - erp_net
+
+  # --- 4. Analytics (API SOA & Mining) ---
+  analytics:
+    build: ./analytics_service
+    container_name: analytics_api
+    ports: ["8001:8001"]
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASS}@db/${DB_NAME_BI}
+    depends_on: [etl]
+    networks:
+      - erp_net
+
+  # --- 5. Dashboard AI (Streamlit - For Storytelling) ---
+  dashboard_ia:
+    build: ./dashboard
+    container_name: streamlit_app
+    ports: ["8501:8501"]
+    environment:
+      ANALYTICS_API_URL: http://analytics:8001
+      GROQ_TOKEN: ${GROQ_TOKEN}
+    depends_on: [analytics]
+    networks:
+      - erp_net
+
+  # --- 6. METABASE (BI Self-Service) ---
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase_bi
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase_app_db  # Metabase internal database
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${DB_USER}
+      MB_DB_PASS: ${DB_PASS}
+      MB_DB_HOST: db
+    volumes:
+      - metabase_data:/metabase-data
+    depends_on:
+      - db
+    networks:
+      - erp_net
+
+volumes:
+  pg_data:
+  metabase_data:
+
+networks:
+  erp_net:
+    driver: bridge
