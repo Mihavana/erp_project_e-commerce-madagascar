@@ -40,7 +40,7 @@ The system comprises **6 services** orchestrated by Docker:
 
 2.  Launch the infrastructure:
     ```bash
-    docker-compose up -d --build
+    docker compose up -d --build
     ```
 
 ---
