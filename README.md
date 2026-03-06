@@ -1,4 +1,4 @@
-## 👥 Équipe Projet (Groupe 4)
+## 👥 Équipe Projet
 
 - **RAHOLDINA FIARA ANJARA MIHAVANA**
 - **ANDRIATSIFERANA NO KANTO LORIDA**
